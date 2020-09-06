@@ -5,13 +5,13 @@ import '../../lib/binance.dart';
 void main() {
   final fwebsocket = BinanceFuture();
 
-  test('aggTrade', () async {
-    final stream = await fwebsocket.aggTrade('BTCUSDT');
+  test('allBookTicker', () async {
+    final stream = await fwebsocket.allBookTicker();
 
     stream.first.then(expectAsync1((e) {
-      expect(e.eventType, equals('aggTrade'));
-      expect(e.eventTime, isNotNull);
-      expect(e.id, isNotNull);
+      expect(e.updateID, isNotNull);
+      expect(e.askPrice, isNotNull);
+      expect(e.bidQty, isNotNull);
     }));
   });
 
