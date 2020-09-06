@@ -1,11 +1,14 @@
 import 'dart:convert' as convert;
 import 'package:web_socket_channel/io.dart';
 
+import '../../data/future_classes.dart';
+import '../../data/future_classes.dart';
+import '../../data/future_classes.dart';
 import '../../data/ws_classes.dart';
 
 class BinanceFutureWebsocket {
   IOWebSocketChannel _public(String channel) => IOWebSocketChannel.connect(
-        'wss://fstream.binance.com:9443/ws/${channel}',
+        'wss://fstream.binance.com/ws/${channel}',
         pingInterval: Duration(minutes: 1),
       );
 
@@ -69,7 +72,7 @@ class BinanceFutureWebsocket {
   }
 
   /// Pushes any update to the best bid or ask's price or quantity in real-time for all symbols
-  /// 
+  ///
   /// https://github.com/binance-exchange/binance-official-api-docs/blob/master/web-socket-streams.md#all-book-tickers-stream
 
   Stream<WSBookTicker> allBookTicker() {
@@ -106,5 +109,16 @@ class BinanceFutureWebsocket {
     return channel.stream
         .map<Map>(_toMap)
         .map<DiffBookDepth>((m) => DiffBookDepth.fromMap(m));
+  }
+
+  /// Mark price and funding rate for all symbols pushed every 3 seconds or every second.
+  ///
+  /// https://binance-docs.github.io/apidocs/futures/en/#mark-price-stream-for-all-market
+
+  Stream<List<MarkPrice>> allMarkPrice() {
+    final channel = _public("!markPrice@arr");
+
+    return channel.stream.map<List<Map>>(_toList).map<List<MarkPrice>>(
+        (l) => l.map((m) => MarkPrice.fromMap(m)).toList());
   }
 }

@@ -20,10 +20,10 @@ class MarkPrice implements _WebsocketBase {
 
   MarkPrice.fromMap(Map m)
       : this.eventType = m["e"],
-        this.eventTime = m["E"],
+        this.eventTime = DateTime.fromMillisecondsSinceEpoch(m["E"]),
         this.symbol = m["s"],
         this.markPrice = m["p"],
         this.indexPrice = m["i"],
         this.fundingRate = m["r"],
-        this.nextFundingTime = m["T"];
+        this.nextFundingTime = DateTime.fromMillisecondsSinceEpoch(m["T"]);
 }
