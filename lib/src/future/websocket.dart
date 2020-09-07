@@ -2,7 +2,6 @@ import 'dart:convert' as convert;
 import 'package:web_socket_channel/io.dart';
 
 import '../../data/future_classes.dart';
-import '../../data/ws_classes.dart';
 
 class BinanceFutureWebsocket {
   IOWebSocketChannel _public(String channel) => IOWebSocketChannel.connect(
@@ -17,10 +16,12 @@ class BinanceFutureWebsocket {
   ///
   /// https://github.com/binance-exchange/binance-official-api-docs/blob/master/web-socket-streams.md#individual-symbol-mini-ticker-stream
 
-  Stream<WSBookTicker> allBookTicker() {
+  Stream<FutureBookTicker> allBookTicker() {
     final channel = _public("!bookTicker");
 
-    return channel.stream.map<Map>(_toMap).map((m) => WSBookTicker.fromMap(m));
+    return channel.stream
+        .map<Map>(_toMap)
+        .map((m) => FutureBookTicker.fromMap(m));
   }
 
   Stream<List<MarkPrice>> allMarkPrice() {

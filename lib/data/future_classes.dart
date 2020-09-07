@@ -27,3 +27,24 @@ class MarkPrice implements _WebsocketBase {
         this.fundingRate = m["r"],
         this.nextFundingTime = DateTime.fromMillisecondsSinceEpoch(m["T"]);
 }
+
+class FutureBookTicker {
+  final DateTime eventTime;
+  final DateTime transactionTime;
+  final String symbol;
+  final int updateID;
+  final double bidPrice;
+  final double bidQty;
+  final double askPrice;
+  final double askQty;
+
+  FutureBookTicker.fromMap(Map m)
+      : this.updateID = m["u"],
+        this.eventTime = DateTime.fromMillisecondsSinceEpoch(m["E"]),
+        this.transactionTime = DateTime.fromMillisecondsSinceEpoch(m["T"]),
+        this.symbol = m["s"],
+        this.bidPrice = double.parse(m["b"]),
+        this.bidQty = double.parse(m["B"]),
+        this.askPrice = double.parse(m["a"]),
+        this.askQty = double.parse(m["A"]);
+}

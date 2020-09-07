@@ -69,7 +69,7 @@ class BinanceWebsocket {
   }
 
   /// Pushes any update to the best bid or ask's price or quantity in real-time for all symbols
-  /// 
+  ///
   /// https://github.com/binance-exchange/binance-official-api-docs/blob/master/web-socket-streams.md#all-book-tickers-stream
 
   Stream<WSBookTicker> allBookTicker() {
