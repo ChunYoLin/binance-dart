@@ -170,4 +170,12 @@ class WSBookTicker {
         this.bidQty = double.parse(m["B"]),
         this.askPrice = double.parse(m["a"]),
         this.askQty = double.parse(m["A"]);
+
+  WSBookTicker.clone(WSBookTicker wsBookTicker)
+      : this.symbol = wsBookTicker.symbol,
+        this.updateID = wsBookTicker.updateID,
+        this.bidPrice = wsBookTicker.bidPrice,
+        this.bidQty = wsBookTicker.bidQty,
+        this.askPrice = wsBookTicker.askPrice,
+        this.askQty = wsBookTicker.askQty;
 }

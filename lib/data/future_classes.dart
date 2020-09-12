@@ -26,6 +26,15 @@ class MarkPrice implements _WebsocketBase {
         this.indexPrice = m["i"],
         this.fundingRate = m["r"],
         this.nextFundingTime = DateTime.fromMillisecondsSinceEpoch(m["T"]);
+
+  MarkPrice.clone(MarkPrice markPrice)
+      : this.eventType = markPrice.eventType,
+        this.eventTime = markPrice.eventTime,
+        this.symbol = markPrice.symbol,
+        this.markPrice = markPrice.markPrice,
+        this.indexPrice = markPrice.indexPrice,
+        this.fundingRate = markPrice.fundingRate,
+        this.nextFundingTime = markPrice.nextFundingTime;
 }
 
 class FutureBookTicker {
@@ -47,4 +56,14 @@ class FutureBookTicker {
         this.bidQty = double.parse(m["B"]),
         this.askPrice = double.parse(m["a"]),
         this.askQty = double.parse(m["A"]);
+
+  FutureBookTicker.clone(FutureBookTicker futureBookTicker)
+      : this.symbol = futureBookTicker.symbol,
+        this.eventTime = futureBookTicker.eventTime,
+        this.transactionTime = futureBookTicker.transactionTime,
+        this.updateID = futureBookTicker.updateID,
+        this.bidPrice = futureBookTicker.bidPrice,
+        this.bidQty = futureBookTicker.bidQty,
+        this.askPrice = futureBookTicker.askPrice,
+        this.askQty = futureBookTicker.askQty;
 }
