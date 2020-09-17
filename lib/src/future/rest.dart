@@ -1,3 +1,4 @@
+import 'package:binance/data/future_classes.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
@@ -142,5 +143,18 @@ class BinanceFutureRest {
     final response = await _public('/v1/ticker/bookTicker');
 
     return List<BookTicker>.from(response.map((s) => BookTicker.fromMap(s)));
+  }
+
+  Future<FutureRestMarkPrice> markPrice(String symbol) async {
+    final response = await _public('/v1/premiumIndex', {'symbol': symbol});
+
+    return FutureRestMarkPrice.fromMap(response);
+  }
+
+  Future<List<FutureRestMarkPrice>> allMarkPrices() async {
+    final response = await _public('/v1/premiumIndex');
+
+    return List<FutureRestMarkPrice>.from(
+        response.map((s) => FutureRestMarkPrice.fromMap(s)));
   }
 }

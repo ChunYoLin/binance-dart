@@ -109,4 +109,19 @@ void main() {
     expect(result.first.symbol, isNotNull);
     expect(result.first.bidPrice, isNotNull);
   });
+
+  test('markPrice', () async {
+    final result = await rest.markPrice('BTCUSDT');
+
+    expect(result.symbol, equals('BTCUSDT'));
+    expect(result.fundingRate, isNotNull);
+  });
+
+  test('allMarkPrices', () async {
+    final result = await rest.allMarkPrices();
+
+    expect(result.length, greaterThan(50));
+    expect(result.first.symbol, isNotNull);
+    expect(result.first.fundingRate, isNotNull);
+  });
 }

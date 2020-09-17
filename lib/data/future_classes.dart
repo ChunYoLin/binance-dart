@@ -37,6 +37,33 @@ class MarkPrice implements _WebsocketBase {
         this.nextFundingTime = markPrice.nextFundingTime;
 }
 
+class FutureRestMarkPrice {
+  final String symbol;
+
+  final String markPrice;
+  final String indexPrice;
+  final String fundingRate;
+  final DateTime nextFundingTime;
+  final DateTime curTime;
+
+  FutureRestMarkPrice.fromMap(Map m)
+      : this.symbol = m["symbol"],
+        this.markPrice = m["markPrice"],
+        this.indexPrice = m["indexPrice"],
+        this.fundingRate = m["lastFundingRate"],
+        this.nextFundingTime =
+            DateTime.fromMillisecondsSinceEpoch(m["nextFundingTime"]),
+        this.curTime = DateTime.fromMillisecondsSinceEpoch(m["time"]);
+
+  FutureRestMarkPrice.clone(FutureRestMarkPrice markPrice)
+      : this.symbol = markPrice.symbol,
+        this.markPrice = markPrice.markPrice,
+        this.indexPrice = markPrice.indexPrice,
+        this.fundingRate = markPrice.fundingRate,
+        this.nextFundingTime = markPrice.nextFundingTime,
+        this.curTime = markPrice.curTime;
+}
+
 class FutureBookTicker {
   final DateTime eventTime;
   final DateTime transactionTime;
